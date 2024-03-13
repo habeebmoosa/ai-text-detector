@@ -41,7 +41,7 @@ To use the project:
 4. Input text to classify whether it is human-generated or AI-generated.
 
 ## Contributors
-- [Your Name](https://github.com/yourusername) - Project Lead & Developer
+- [Habeeb Moosa](https://github.com/habeebmoosa) - Project Lead & Developer
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
