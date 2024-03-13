@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>AI Text Detection</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Raleway+Dots&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+        .heading {
+            text-align: center;
+        }
+
+        h1 {
+            user-select: none;
+            font-family: "Roboto Mono", monospace;
+            font-weight: 400;
+            padding: 0;
+        }
+
+        body {
+            background-image: url('./static/aii.jpg'); 
+            background-size: cover; 
+            background-repeat: no-repeat; 
+            background-attachment: fixed; 
+        }
+
+        .container {
+            max-width: 70vw;
+            margin: 5px auto;
+            padding: 20px;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            width: 48%;
+        }
+
+        .left-card {
+            margin-right: 10px;
+            width: 900px;
+            background-color: rgba(245, 245, 245, 0.7); /* Adjust the alpha value here */
+        }
+        
+        .right-card {
+            margin-left: 10px;
+            padding-top: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: rgba(245, 245, 245, 0.7); /* Adjust the alpha value here */
+        }
+        
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        textarea {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none;
+            width: 40vw;
+            height: 50vh;
+            background-color: transparent; /* Set background color to transparent */
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #6f42c1;
+            /* Change button color to purple */
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .result-indicator {
+            padding-left: 10px;
+            padding-right: 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        .bg-success {
+            background-color: #28a745;
+        }
+
+        .bg-danger {
+            background-color: #dc3545;
+        }
+
+        .control-panel {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .resultText {
+            margin-bottom: 10px;
+            text-align: center;
+            color: gray;
+            font-size: large;
+            border: 2px solid #76797c;
+            border-radius: 4px;
+            padding: 4px;
+            background-color: transparent; /* Set background color to transparent */
+        }
+
+        .loading-spinner {
+            border: 10px solid rgba(0, 0, 0, 0.4); /* Adjust the alpha value here */
+            border-top: 10px solid #007bff;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            animation: spin 1s linear infinite;
+            margin-top: -20px;
+            margin-left: -20px;
+            z-index: 999;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        #result-box {
+            width: 100%;
+            height: 100%;
+        }
+
+        .word-count-box {
+            background-color: #007bff;
+            color: white;
+            border-radius: 4px;
+            padding: 6px 12px;
+            margin-bottom: 10px;
+        }
+
+        .word-count {
+            font-size: large;
+            margin: 0;
+        }
+
+        .imageScreen {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+        }
+
+        #colorBox {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(40, 167, 69, 0.8); /* Adjust the alpha value here */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3.5em;
+            color: white;
+            border-radius: 4px;
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .card-container {
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .card {
+                width: 100%;
+            }
+
+            .left-card {
+                margin-right: 0;
+            }
+
+            .right-card {
+                margin-left: 0;
+            }
+
+            textarea {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="heading">
+        <h1>AI Text Detection</h1>
+        <p>Use this tool to detect the AI Generated Text</p>
+    </div>
+    <div class="container">
+        <div class="card-container">
+            <div class="card left-card">
+                <form id="input-form">
+                    <textarea name="inputbox" id="inputarea" class="form-control" rows="10"
+                        placeholder="Enter the text"></textarea>
+
+                    <button type="submit" id="check-btn">Check</button>
+                </form>
+            </div>
+            <div class="card right-card">
+                <div id="result-box">
+                    <h3>Result</h3>
+                    <div class="word-count-box">
+                        <p class="word-count" id="word-count">Word Count: 0</p>
+                    </div>
+                    <div class="resultText">
+                        <p id="result">Result Will appear here</p>
+                    </div>
+                    <div class="imageScreen">
+                        <div id="loading-spinner" class="loading-spinner"></div>
+                        <div id="colorBox">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const inputArea = document.getElementById('inputarea');
+            const wordCountDisplay = document.getElementById('word-count');
+            const loadingSpinner = document.getElementById('loading-spinner');
+            let wordCount = 0;
+
+            inputArea.addEventListener('input', function () {
+                const inputText = this.value.trim();
+                wordCount = inputText === "" ? 0 : inputText.split(/\s+/).length;
+                wordCountDisplay.textContent = 'Word Count: ' + wordCount;
+            });
+
+            document.getElementById('input-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                let inputData = new FormData(this);
+
+                if (wordCount < 99) {
+                    alert('Please enter at least 300 words');
+                    return;
+                } else {
+                    document.getElementById('colorBox').style.display = 'none';
+                    loadingSpinner.style.display = 'block';
+                    document.getElementById('result').style.color = 'gray';
+                    document.getElementById('result').innerHTML = 'Analyzing...';
+
+                    fetch('/analyze', {
+                        method: 'POST',
+                        body: inputData
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            loadingSpinner.style.display = 'none';
+
+                            if (data.result === 'human') {
+                                document.getElementById('result').style.color = '#28a745';
+                                document.getElementById('result').innerHTML = 'The Text is likely Human written';
+                                document.getElementById('colorBox').style.display = 'flex';
+                                document.getElementById('colorBox').style.backgroundColor = '#28a745';
+                                document.getElementById('colorBox').innerHTML = 'HUMAN';
+                            } else {
+                                document.getElementById('result').style.color = '#dc3545';
+                                document.getElementById('result').innerHTML = 'The Text is likely AI generated';
+                                document.getElementById('colorBox').style.display = 'flex';
+                                document.getElementById('colorBox').style.backgroundColor = '#dc3545';
+                                document.getElementById('colorBox').innerHTML = 'AI';
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            loadingSpinner.style.display = 'none';
+                        });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
