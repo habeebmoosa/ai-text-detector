@@ -17,11 +17,11 @@ def predict_text(df):
 
     return prediction, prediction_proba
 
-@app.route('/')
-def index():
-    return render_template('welcome.html')
+# @app.route('/')
+# def index():
+#     return render_template('welcome.html')
 
-@app.route('/detect')
+@app.route('/')
 def detect():
     return render_template('index.html')
 

@@ -21,16 +21,17 @@
         }
 
         body {
-            background-image: url('./static/aii.jpg'); 
-            background-size: cover; 
-            background-repeat: no-repeat; 
-            background-attachment: fixed; 
+            background-image: url('./static/aii.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
 
         .container {
             max-width: 70vw;
             margin: 5px auto;
             padding: 20px;
+            padding-bottom: 5px;
         }
 
         .card-container {
@@ -50,9 +51,9 @@
         .left-card {
             margin-right: 10px;
             width: 900px;
-            background-color: rgba(245, 245, 245, 0.7); /* Adjust the alpha value here */
+            background-color: rgba(245, 245, 245, 0.7);
         }
-        
+
         .right-card {
             margin-left: 10px;
             padding-top: 4px;
@@ -60,9 +61,9 @@
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            background-color: rgba(245, 245, 245, 0.7); /* Adjust the alpha value here */
+            background-color: rgba(245, 245, 245, 0.7);
         }
-        
+
 
         form {
             display: flex;
@@ -75,9 +76,9 @@
             border: 1px solid #ccc;
             border-radius: 4px;
             resize: none;
-            width: 40vw;
+            /* width: 100%; */
             height: 50vh;
-            background-color: transparent; /* Set background color to transparent */
+            background-color: transparent;
         }
 
         button {
@@ -85,7 +86,6 @@
             border: none;
             border-radius: 4px;
             background-color: #6f42c1;
-            /* Change button color to purple */
             color: #fff;
             cursor: pointer;
         }
@@ -125,11 +125,11 @@
             border: 2px solid #76797c;
             border-radius: 4px;
             padding: 4px;
-            background-color: transparent; /* Set background color to transparent */
+            background-color: transparent;
         }
 
         .loading-spinner {
-            border: 10px solid rgba(0, 0, 0, 0.4); /* Adjust the alpha value here */
+            border: 10px solid rgba(0, 0, 0, 0.4);
             border-top: 10px solid #007bff;
             border-radius: 50%;
             width: 80px;
@@ -180,7 +180,7 @@
         #colorBox {
             width: 100%;
             height: 100%;
-            background-color: rgba(40, 167, 69, 0.8); /* Adjust the alpha value here */
+            background-color: rgba(40, 167, 69, 0.8);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -188,6 +188,19 @@
             color: white;
             border-radius: 4px;
             display: none;
+        }
+
+        .footer{
+            text-align: center;
+        }
+
+        .footer a{
+            text-decoration: none;
+            color: #6f42c1;
+        }
+
+        .footer a:hover{
+            text-decoration: underline;
         }
 
         @media (max-width: 768px) {
@@ -209,8 +222,8 @@
                 margin-left: 0;
             }
 
-            textarea {
-                width: 100%;
+            .container {
+                max-width: 84vw;
             }
         }
     </style>
@@ -250,6 +263,10 @@
             </div>
         </div>
     </div>
+    <div class="footer">
+        <p>Developed by <a href="https://github.com/habeebmoosa/ai-text-detector" target="_blank">Habeeb Moosa</a></p>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const inputArea = document.getElementById('inputarea');
