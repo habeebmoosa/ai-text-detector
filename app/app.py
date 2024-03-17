@@ -17,10 +17,6 @@ def predict_text(df):
 
     return prediction, prediction_proba
 
-# @app.route('/')
-# def index():
-#     return render_template('welcome.html')
-
 @app.route('/')
 def detect():
     return render_template('index.html')
@@ -47,6 +43,3 @@ def analyze():
         result = "ai"
 
     return jsonify({'result': result, 'probability1': str(probability_human), 'probability2': str(probability_ai)})
-
-if __name__ == '__main__':
-    app.run(debug=True)
