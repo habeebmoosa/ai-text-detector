@@ -42,6 +42,7 @@ To use the project:
 
 ## Contributors
 - [Habeeb Moosa](https://github.com/habeebmoosa) - Project Lead & Developer
+- [Hanisha Musangi](https://github.com/MusangiHanisha) - Frontend Developer
 
 ## License
 This project is licensed under the [MIT License](LICENSE).

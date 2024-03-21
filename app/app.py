@@ -43,3 +43,6 @@ def analyze():
         result = "ai"
 
     return jsonify({'result': result, 'probability1': str(probability_human), 'probability2': str(probability_ai)})
+
+if __name__ == '__main__':
+    app.run(debug=True)
