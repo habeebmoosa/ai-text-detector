@@ -2,10 +2,12 @@ import pandas as pd
 from nltk.tokenize import word_tokenize
 import string
 from nltk import pos_tag, ne_chunk
-from gensim import corpora
-from gensim.models import LdaModel
+# from gensim import corpora
+# from gensim.models import LdaModel
+# gensim==4.3.2
 import textstat
-from language_tool_python import LanguageTool
+# from language_tool_python import LanguageTool
+# language-tool-python==2.7.1
 import joblib
 
 def feature_extraction(df):
@@ -33,19 +35,23 @@ def feature_extraction(df):
 
     # Topic Modeling -------------------------------------------------------
 
-    corpus = [text.split() for text in df['cleaned_text']]
+    # corpus = [text.split() for text in df['cleaned_text']]
 
-    dictionary = corpora.Dictionary(corpus)
+    # dictionary = corpora.Dictionary(corpus)
 
-    corpus_bow = [dictionary.doc2bow(text) for text in corpus]
+    # corpus_bow = [dictionary.doc2bow(text) for text in corpus]
+
+    # num_topics = 20
+    # lda_model = LdaModel(corpus_bow, num_topics=num_topics, id2word=dictionary, passes=15)
+
+    # topic_distribution = lda_model.get_document_topics(corpus_bow)
+
+    # for topic in range(num_topics):
+    #     df[f'topic_{topic + 1}_score'] = [next((t[1] for t in topic_dist if t[0] == topic), 0) for topic_dist in topic_distribution]
 
     num_topics = 20
-    lda_model = LdaModel(corpus_bow, num_topics=num_topics, id2word=dictionary, passes=15)
-
-    topic_distribution = lda_model.get_document_topics(corpus_bow)
-
     for topic in range(num_topics):
-        df[f'topic_{topic + 1}_score'] = [next((t[1] for t in topic_dist if t[0] == topic), 0) for topic_dist in topic_distribution]
+        df[f'topic_{topic + 1}_score'] = 0
 
     # Readability Scores -------------------------------------------------------
 
@@ -154,6 +160,7 @@ def ner_count(text):
     return ner_count
 
 def error_length(text):
-    tool = LanguageTool('en-US')
-    matches = tool.check(text)
-    return len(matches)
+    # tool = LanguageTool('en-US')
+    # matches = tool.check(text)
+    # return len(matches)
+    return 0
