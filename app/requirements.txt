@@ -7,3 +7,5 @@ textstat==0.7.3
 Werkzeug==3.0.1
 language-tool-python==2.7.1
 gensim==4.3.2
+numpy==1.26.4
+gunicorn==21.2.0
