@@ -2,8 +2,6 @@ import pandas as pd
 from nltk.tokenize import word_tokenize
 import string
 from nltk import pos_tag, ne_chunk
-from gensim import corpora
-from gensim.models import LdaModel
 import textstat
 from language_tool_python import LanguageTool
 import joblib
@@ -33,19 +31,9 @@ def feature_extraction(df):
 
     # Topic Modeling -------------------------------------------------------
 
-    corpus = [text.split() for text in df['cleaned_text']]
-
-    dictionary = corpora.Dictionary(corpus)
-
-    corpus_bow = [dictionary.doc2bow(text) for text in corpus]
-
     num_topics = 20
-    lda_model = LdaModel(corpus_bow, num_topics=num_topics, id2word=dictionary, passes=15)
-
-    topic_distribution = lda_model.get_document_topics(corpus_bow)
-
     for topic in range(num_topics):
-        df[f'topic_{topic + 1}_score'] = [next((t[1] for t in topic_dist if t[0] == topic), 0) for topic_dist in topic_distribution]
+        df[f'topic_{topic + 1}_score'] = 0
 
     # Readability Scores -------------------------------------------------------
 
