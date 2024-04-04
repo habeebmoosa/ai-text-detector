@@ -264,7 +264,7 @@
         </div>
     </div>
     <div class="footer">
-        <p>Developed by <a href="https://habeebmoosa.vercel.app/" target="_blank">Habeeb Moosa & Team</a></p>
+        <p>Developed by <a href="https://habeebmoosa.vercel.app/" target="_blank">Habeeb Moosa</a></p>
     </div>
 
     <script>
@@ -318,6 +318,8 @@
                         .catch(error => {
                             console.error('Error:', error);
                             loadingSpinner.style.display = 'none';
+                            document.getElementById('result').style.color = '#dc3545';
+                            document.getElementById('result').innerHTML = 'An error occurred. Please try again';
                         });
                 }
             });
