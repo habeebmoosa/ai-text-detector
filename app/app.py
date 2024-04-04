@@ -2,6 +2,13 @@ from flask import Flask, request, jsonify, render_template
 from preprocess import preprocess_text, postprocess_text
 from features import feature_extraction
 import joblib
+import nltk
+
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+nltk.download('stopwords')
+nltk.download('maxent_ne_chunker')
+nltk.download('words')
 
 app = Flask(__name__, static_url_path='/static')
 
