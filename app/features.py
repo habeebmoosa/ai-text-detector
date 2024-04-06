@@ -3,7 +3,7 @@ from nltk.tokenize import word_tokenize
 import string
 from nltk import pos_tag, ne_chunk
 import textstat
-from language_tool_python import LanguageTool
+# from language_tool_python import LanguageTool
 import joblib
 
 def feature_extraction(df):
@@ -57,7 +57,7 @@ def feature_extraction(df):
     df['ner_count'] = df['text'].apply(ner_count)
 
     # Text error length -----------------------------------------------------------
-    df['error_length'] = df['text'].apply(error_length)
+    df['error_length'] = 4
 
     # Preprocessing again --------------------------------------------------------------
 
@@ -141,7 +141,7 @@ def ner_count(text):
     ner_count = sum(1 for chunk in ner_tags if hasattr(chunk, 'label'))
     return ner_count
 
-def error_length(text):
-    tool = LanguageTool('en-US')
-    matches = tool.check(text)
-    return len(matches)
+# def error_length(text):
+#     tool = LanguageTool('en-US')
+#     matches = tool.check(text)
+#     return len(matches)
