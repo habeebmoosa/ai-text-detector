@@ -1,19 +1,19 @@
 {
-    "version":2,
-    "functions":{
-        "memory":1024
-    },
-    "builds": [
-        {
-            "src":"./index.py",
-            "use": "@vercel/python",
-            "config":{"runtime":"python3.11"}
+    "version": 2,
+    "functions": {
+        "api": {
+            "memory": 1024,
+            "runtime": "python3.8",
+            "includeFiles": ["./index.py"]
         }
-    ],
+    },
     "routes": [
-        {
-            "src":"/(.*)",
-            "dest":"/"
+        { "handle": "api/**" }
+    ],
+    "builds": [
+        { 
+            "src": "./index.py",
+            "use": "@vercel/python"
         }
     ]
 }
