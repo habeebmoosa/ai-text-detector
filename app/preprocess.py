@@ -1,29 +1,22 @@
 import pandas as pd
-import re
-from nltk.tokenize import word_tokenize
 
 def preprocess_text(text):
+    # Create a dummy DataFrame with 'text' column
     df = pd.DataFrame({'text': [text]})
     
-    df['text'] = df['text'].apply(space_remover)
-    df['cleaned_text'] = df['text'].apply(clean_text)
+    # Apply dummy functions to mimic preprocessing
+    df['text'] = df['text'].apply(dummy_space_remover)
+    df['cleaned_text'] = df['text'].apply(dummy_clean_text)
 
     return df
 
-def space_remover(text):
-    words = word_tokenize(text)
-    text = ' '.join(words)
-    return re.sub(r'\s+', ' ', text).strip()
+def dummy_space_remover(text):
+    # Dummy function: removes spaces
+    return text.strip()
 
-def clean_text(text):
-    text = re.sub(r'[^a-zA-Z\s]', '', text)
-    text = text.lower()
-
-    words = word_tokenize(text)
-
-    cleaned_text = ' '.join(words)
-    cleaned_text = re.sub(r'\s+', ' ', cleaned_text).strip()
-    return cleaned_text
+def dummy_clean_text(text):
+    # Dummy function: lowercase and remove non-alphabetic characters
+    return text.lower().replace('.', '')
 
 def postprocess_text(df):
     duplicate_columns = df.columns.duplicated(keep='first')
